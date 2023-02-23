@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import './style.css';
+import logo from '../../assets/logo.png';
 
 function Home() {
   return (
     <>
       <div className='center-content'>
-        <img src='src/assets/logo.png' alt='logo nefrocheck' className='logo' />
+        <img src={logo} alt='logo nefrocheck' className='logo' />
         <Link to={'questions'}>
           <div className='app-button center-content'>Ir para a aplicação</div>
         </Link>
