@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import './App.css';
-import FormQuestion from './components/FormQuestion';
-import { useForm } from './hooks/useForm';
-import { ANSWERS, QUESTIONS } from './shared/constants/questions';
-import { FormComponent } from './shared/interfaces/form';
+import FormQuestion from '../../components/FormQuestion';
+import { useForm } from '../../hooks/useForm';
+import { ANSWERS, QUESTIONS } from '../../shared/constants/questions';
+import { FormComponent } from '../../shared/interfaces/form';
+import './style.css';
 
-function App() {
+function Questions() {
   const formComponents: FormComponent[] = generateComponentQuestions();
   const [answer, setAnswer] = useState('');
   const [previousQuestion, setPreviousQuestion] = useState(1);
@@ -108,4 +108,4 @@ function App() {
   }
 }
 
-export default App;
+export default Questions;
