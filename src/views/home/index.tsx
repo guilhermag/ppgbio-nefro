@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
+import './style.css';
 
 function Home() {
   return (
     <>
-      <h1>NefroCheck</h1>
-      <div className='content'>
+      <div className='center-content'>
+        <img src='src/assets/logo.png' alt='logo nefrocheck' className='logo' />
+        <Link to={'questions'}>
+          <div className='app-button center-content'>Ir para a aplicação</div>
+        </Link>
         <div className='text-section'>
           <p>
             Idealizado e pensado por{' '}
@@ -24,7 +28,7 @@ function Home() {
             , da UTFPR - Toledo.
           </p>
         </div>
-        <div className='text-section'>
+        <div className='text-section center-content'>
           <p>
             Aplicação desenvolvida por Guilherme de Araujo Gabriel, tecnologias
             utilizadas :
@@ -39,8 +43,6 @@ function Home() {
           </a>
         </div>
       </div>
-
-      <Link to={'questions'}>Perguntas</Link>
     </>
   );
 }
