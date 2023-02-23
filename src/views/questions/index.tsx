@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { Link } from 'react-router-dom';
 import FormQuestion from '../../components/FormQuestion';
 import { useForm } from '../../hooks/useForm';
 import { ANSWERS, QUESTIONS } from '../../shared/constants/questions';
@@ -72,6 +73,7 @@ function Questions() {
           </div>
         </form>
       </div>
+      <Link to={'/'}>Voltar para a Home</Link>
     </div>
   );
 
