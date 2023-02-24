@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FormQuestion from '../components/FormQuestion';
+import { QUESTIONS } from '../shared/constants/questions';
 import { FormComponent, FormHook } from '../shared/interfaces/form';
 
 export function useForm(steps: FormComponent[]): FormHook {
@@ -11,8 +12,10 @@ export function useForm(steps: FormComponent[]): FormHook {
 
   function getQuestionByOrder(order: number): FormComponent {
     const question = steps.find((component) => component.order === order);
+
     const questionNotFound: FormComponent = {
-      component: <FormQuestion question={'Pergunta não encontrada!'} />,
+      component: <FormQuestion question={QUESTIONS[0]} />,
+      showButtons: QUESTIONS[0].showButtons,
       order: 0,
     };
     return question ? question : questionNotFound;
