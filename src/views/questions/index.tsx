@@ -16,16 +16,13 @@ function Questions() {
     useForm(formComponents);
 
   return (
-    <div className='app'>
-      <div className='header'>
-        <h2>Inicie a avaliação do paciente</h2>
-      </div>
+    <div className='center-content gap-2rem'>
       <div className='form-container'>
         <form>
           <div className='inputs-container'>{currentComponent.component}</div>
 
           {currentComponent.showButtons && (
-            <div className='form-inputs'>
+            <div className='form-inputs center-content'>
               <div className='input-option'>
                 <input
                   type='radio'
@@ -54,13 +51,14 @@ function Questions() {
             </div>
           )}
 
-          <div className='actions'>
+          <div className='actions center-content'>
             {checkInitialQuestion() && (
               <button
                 type='button'
                 onClick={() => {
                   selectPreviousQuestion();
                 }}
+                className='center-content row'
               >
                 <GrFormPrevious />
                 <span>Voltar</span>
@@ -72,6 +70,7 @@ function Questions() {
                 onClick={() => {
                   selectNextQuestion();
                 }}
+                className='center-content row'
               >
                 <span>Avançar</span>
                 <GrFormNext />
@@ -80,13 +79,15 @@ function Questions() {
           </div>
         </form>
       </div>
-      <Link to={'/'}>Voltar para a Home</Link>
+      <Link to={'/'}>
+        <div className='app-button center-content'>Voltar para a Home</div>
+      </Link>
     </div>
   );
 
   function generateComponentQuestions(): FormComponent[] {
     return QUESTIONS.map((question) => ({
-      component: <FormQuestion question={question.question} />,
+      component: <FormQuestion question={question} />,
       showButtons: question.showButtons,
       order: question.order,
     }));

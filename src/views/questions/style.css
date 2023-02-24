@@ -1,0 +1,7 @@
+.actions button {
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  width: 8rem;
+  height: 3rem;
+}
