@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import FormQuestion from '../../components/FormQuestion';
 import { useForm } from '../../hooks/useForm';
 import { ANSWERS, QUESTIONS } from '../../shared/constants/questions';
-import { FormComponent } from '../../shared/interfaces/form';
+import { Answer, FormComponent } from '../../shared/interfaces/form';
 import './style.css';
 
 function Questions() {
   const formComponents: FormComponent[] = generateComponentQuestions();
   const [answer, setAnswer] = useState('');
   const [previousQuestion, setPreviousQuestion] = useState(1);
+  const [checkYes, setCheckYes] = useState(false);
+  const [checkNo, setCheckNo] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const { currentQuestion, currentComponent, changeQuestion } =
     useForm(formComponents);
@@ -23,15 +26,21 @@ function Questions() {
 
           {currentComponent.showButtons && (
             <div className='form-inputs center-content'>
+              {/* {showErrorMessage && <div>teste</div>} */}
+
               <div className='input-option'>
                 <input
                   type='radio'
                   name='answer'
                   value='yes'
                   id='yes'
-                  onChange={(answerQuestion) =>
-                    setAnswer(answerQuestion.target.value)
-                  }
+                  required
+                  checked={checkYes}
+                  onChange={(answerQuestion) => {
+                    setCheckNo(false);
+                    setCheckYes(true);
+                    setAnswer(answerQuestion.target.value);
+                  }}
                 />
                 <label htmlFor='yesAnswer'>Sim</label>
               </div>
@@ -42,9 +51,13 @@ function Questions() {
                   name='answer'
                   value='no'
                   id='no'
-                  onChange={(answerQuestion) =>
-                    setAnswer(answerQuestion.target.value)
-                  }
+                  checked={checkNo}
+                  required
+                  onChange={(answerQuestion) => {
+                    setCheckNo(true);
+                    setCheckYes(false);
+                    setAnswer(answerQuestion.target.value);
+                  }}
                 />
                 <label htmlFor='noAnswer'>Não</label>
               </div>
@@ -55,7 +68,7 @@ function Questions() {
             {checkInitialQuestion() && (
               <button
                 type='button'
-                onClick={() => {
+                onClick={(event) => {
                   selectPreviousQuestion();
                 }}
                 className='center-content row'
@@ -106,9 +119,18 @@ function Questions() {
       case 'no':
         changeQuestion(question.caseNo);
         break;
+      case '':
+        if (question.questionOrder > 10) {
+          changeQuestion(question.caseYes);
+        }
+        break;
       default:
         console.log('error: not found');
     }
+    checkShowErrorMessage();
+    setCheckNo(false);
+    setCheckYes(false);
+    setAnswer('');
   }
 
   function selectPreviousQuestion() {
@@ -116,6 +138,9 @@ function Questions() {
       ANSWERS.find((answer) => answer.questionOrder === currentQuestion) ||
       ANSWERS[0];
     changeQuestion(question.previousQuestion || previousQuestion);
+    setCheckNo(false);
+    setCheckYes(false);
+    setAnswer('');
   }
 
   function checkFinalQuestion(): boolean {
@@ -124,6 +149,14 @@ function Questions() {
 
   function checkInitialQuestion(): boolean {
     return currentComponent.order > 1;
+  }
+
+  function checkShowErrorMessage() {
+    if (!checkNo && !checkYes) {
+      setShowErrorMessage(true);
+    } else {
+      setShowErrorMessage(false);
+    }
   }
 }
 
