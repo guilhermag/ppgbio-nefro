@@ -1,5 +1,6 @@
 export interface FormComponent {
   component: JSX.Element;
+  showButtons: boolean;
   order: number;
 }
 
@@ -11,6 +12,7 @@ export interface FormHook {
 
 export interface Question {
   order: number;
+  showButtons: boolean;
   question: string;
 }
 
